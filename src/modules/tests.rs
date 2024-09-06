@@ -109,6 +109,11 @@ use super::dir_utils::folder_copy;
 #[cfg(feature="filesystem")]
 use super::dir_utils::dir_is;
 
+/// Importing the "del_dir" function
+/// from the "dir_utils" module.
+#[cfg(feature="filesystem")]
+use super::dir_utils::del_dir;
+
 /// Importing the "create_directory" function
 /// from the "dir_utils" module.
 #[cfg(feature="filesystem")]
@@ -118,11 +123,6 @@ use super::dir_utils::create_directory;
 /// from the "dir_utils" module.
 #[cfg(feature="filesystem")]
 use super::dir_utils::list_dir_contents;
-
-/// Importing the "del_dir" function
-/// from the "dir_utils" module.
-#[cfg(feature="filesystem")]
-use super::file_utils::del_dir;
 
 /// Importing the "reverse_vec"
 /// function from the "vec_utils"
