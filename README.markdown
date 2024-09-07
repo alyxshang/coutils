@@ -10,7 +10,7 @@ This repository contains a Rust crate containing APIs for performing basic tasks
 
 ## INSTALLATION :inbox_tray:
 
-To use ***Coutils*** in your Rust project add this line to your project's `Cargo.toml`'s `[dependencies]` section:
+To use ***Coutils*** in your Rust project, add this line to your project's `Cargo.toml`'s `[dependencies]` section:
 
 ```TOML
 coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.1.0" }
