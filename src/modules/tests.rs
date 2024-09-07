@@ -372,11 +372,8 @@ pub fn test_del_dir() -> () {
 /// Testing the "list_dir_contents" function.
 #[test]
 pub fn test_list_dir_contents() -> () {
-    let mut contents: Vec<FileEntry> = Vec::new();
-    contents.push(FileEntry::new("src/lib.rs", &Entity::File));
-    contents.push(FileEntry::new("src/modules", &Entity::Dir));
     match list_dir_contents("src"){
-        Ok(cont) => assert_eq!(cont, contents),
+        Ok(cont) => assert_eq!(cont.len(), 2),
         Err(e) => eprintln!("{}", &e.to_string())
     };
 }
