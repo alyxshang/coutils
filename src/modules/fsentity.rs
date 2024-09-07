@@ -3,6 +3,11 @@ Coutils by Alyx Shang.
 Licensed under the FSL v1.
 */
 
+/// Importing the "PartialEq"
+/// trait from Rust's "cmp"
+/// module.
+use std::cmp::PartialEq;
+
 /// An enum to list
 /// the file types.
 #[derive(PartialEq, Clone, Debug)]

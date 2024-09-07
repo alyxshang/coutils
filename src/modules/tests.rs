@@ -454,7 +454,6 @@ pub fn test_file_wr() -> () {
 // Testing the "del_file" function.
 #[test]
 pub fn test_del_file() -> () {
-    let contents: String = "Alyx".to_string();
     match create_file("del.txt"){
         Ok(_naught) => {},
         Err(e) => eprintln!("{}", &e.to_string())
@@ -468,7 +467,6 @@ pub fn test_del_file() -> () {
 // Testing the "file_type" function.
 #[test]
 pub fn test_file_type() -> () {
-    let contents: String = "Alyx".to_string();
     match create_file("type.txt"){
         Ok(_naught) => {},
         Err(e) => eprintln!("{}", &e.to_string())

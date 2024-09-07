@@ -18,11 +18,6 @@ use std::fs::write;
 /// "path" module.
 use std::path::Path;
 
-/// Rust's file metadata
-/// API from the "fs"
-/// module.
-use std::fs::metadata;
-
 /// Importing the method
 /// to copy files
 /// from the "fs-extra"
@@ -33,11 +28,6 @@ use fs_extra::file::copy;
 /// function from the "fs" module
 /// to remove files.
 use std::fs::remove_file;
-
-/// Importing the "PartialEq"
-/// trait from Rust's "cmp"
-/// module.
-use std::cmp::PartialEq;
 
 /// Importing the enum
 /// that describes types
@@ -53,11 +43,6 @@ use std::fs::read_to_string;
 /// crate.
 use fs_extra::file::move_file;
 
-/// Importing the enum
-/// to store information
-/// about filesystem entities.
-use super::fsentity::FileEntry;
-
 /// Importing this crate's error
 /// structure.
 use super::error::CoutilsError;
@@ -72,14 +57,11 @@ use fs_extra::file::CopyOptions;
 /// operation succeeded or not.
 pub fn file_move(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let move_op = move_file(src, target, &options);
-    match move_op {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let _move_op = match move_file(src, target, &options){
+        Ok(_move_op) => _move_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }
 
 /// Checks whether a file exists and
@@ -92,14 +74,11 @@ pub fn file_is(filename: &str) -> bool {
 /// a result type depending on whether the
 /// operation succeeded or not.
 pub fn create_file(filename: &str) -> Result<(), CoutilsError>{
-    let new_file = File::create(filename);
-    match new_file {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let _new_file = match File::create(filename){
+        Ok(_new_file) => _new_file,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }
 
 /// Tries to write to a file and returns
@@ -110,54 +89,54 @@ pub fn write_to_file(
     contents: &str
 ) -> Result<(), CoutilsError> {
     if file_is(filename) == true {
-        let write_op = write(filename, contents);
-        match write_op {
-            Ok(_n) => {},
-            Err(e) => {
-                return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-            }
-        }
+        let _write_op = match write(filename, contents) {
+            Ok(_write_op) => _write_op,
+            Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+        };
     }
-    else {}
-    return Ok(());
+    else {
+        let e: String = format!("The file \"{}\" could not be found.", filename);
+        return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    }
+    Ok(())
 }
 
 /// Tries to read a file and return
 /// its contents as a string.
-pub fn read_file(filename: &str) -> Result<String, CoutilsError> {
-    let mut result: String = String::from("");
-    if file_is(filename) == true {
-        result = match read_to_string(filename) {
+pub fn read_file(file_name: &str) -> Result<String, CoutilsError> {
+    if file_is(file_name) == true {
+        let result = match read_to_string(file_name) {
             Ok(result) => result,
             Err(e) => {
                 return Err::<String, CoutilsError>(CoutilsError::new(&e.to_string()));
             }
         };
+        return Ok(result);
     }
-    else {}
-    Ok(result)
+    else {
+        let e: String = format!("The file \"{}\" could not be found.", file_name);
+        return Err::<String, CoutilsError>(CoutilsError::new(&e.to_string()))
+    }
 }
 
 /// Checks whether "entity" is a directory or
 /// a file.
 pub fn file_type(entity: &str) -> Result<Entity, CoutilsError> {
-    let mut result: Entity = Entity::Unknown;
     if Path::new(entity).exists() {
         if Path::new(entity).is_dir() {
-            result = Entity::Dir;
+            return Ok(Entity::Dir);
         }
         else if Path::new(entity).is_file(){
-            result = Entity::File;
+            return Ok(Entity::File);
         }
         else {
-            result = Entity::Unknown;
+            return Ok(Entity::Unknown);
         }
     }
     else {
         let e: String = format!("Entity \"{}\" does not exist.", entity);
         return Err::<Entity, CoutilsError>(CoutilsError::new(&e.to_string()));
     }
-    Ok(result)
 }
 
 /// Deletes a file and returns 
@@ -176,8 +155,8 @@ pub fn del_file(path: &str) -> Result<(), CoutilsError> {
 /// operation succeeded or not.
 pub fn file_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let copy_op = match copy(src, target, &options){
-        Ok(copy_op) => copy_op,
+    let _copy_op = match copy(src, target, &options){
+        Ok(_copy_op) => _copy_op,
         Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
     };
     Ok(())

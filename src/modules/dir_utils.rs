@@ -8,11 +8,6 @@ Licensed under the FSL v1.
 /// "path" module.
 use std::path::Path;
 
-/// Importing the "PartialEq"
-/// trait from Rust's "cmp"
-/// module.
-use std::cmp::PartialEq;
-
 /// Importing the method
 /// to copy directories
 /// from the "fs-extra"
@@ -63,14 +58,11 @@ use fs_extra::dir::CopyOptions;
 /// operation succeeded or not.
 pub fn folder_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let copy_op = copy(src, target, &options);
-    match copy_op {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let _copy_op = match copy(src, target, &options) {
+        Ok(_copy_op) => _copy_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }
 
 /// Attempts to move a directory from "src" to "target".
@@ -78,28 +70,22 @@ pub fn folder_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
 /// suceeded or not.
 pub fn dir_move(src: &str, target: &str) ->  Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let move_op = move_dir(src, target, &options);
-    match move_op {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let _move_op = match move_dir(src, target, &options) {
+        Ok(_move_op) => _move_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }
 
 /// Tries to create a new directory and returns
 /// a result type depending on whether the
 /// operation succeeded or not.
 pub fn create_directory(path: &str) ->  Result<(), CoutilsError> {
-    let new_dir = create_dir(path);
-    match new_dir {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let _new_dir = match create_dir(path) {
+        Ok(_new_dir) => _new_dir,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }
 
 /// Checks whether a directory exists.
@@ -112,7 +98,7 @@ pub fn dir_is(dir: &str) -> bool {
 /// "FileEntry" entity. Skips all invalid or non-existent entries.
 pub fn list_dir_contents(dir: &str) -> Result<Vec<FileEntry>, CoutilsError> {
     let mut result: Vec<FileEntry> = Vec::new();
-    let mut dirs = match read_dir(dir) {
+    let dirs = match read_dir(dir) {
         Ok(dirs) => dirs,
         Err(e) => {
             return Err::<Vec<FileEntry>, CoutilsError>(CoutilsError::new(&e.to_string()));
@@ -151,12 +137,9 @@ pub fn list_dir_contents(dir: &str) -> Result<Vec<FileEntry>, CoutilsError> {
 /// a result type depending on whether 
 /// the operation succeeded or not.
 pub fn del_dir(path: &str) -> Result<(), CoutilsError> {
-    let del_op = remove_dir_all(path);
-    match del_op {
-        Ok(_x) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
+    let _del_op = match remove_dir_all(path){
+        Ok(_del_op) => _del_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
     };
-    return Ok(());
+    Ok(())
 }
