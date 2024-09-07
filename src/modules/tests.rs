@@ -378,3 +378,46 @@ pub fn test_list_dir_contents() -> () {
         Err(e) => eprintln!("{}", &e.to_string())
     };
 }
+
+/// Testing the "file_move" function.
+#[test]
+pub fn test_file_move() -> () {
+    match create_directory("file_move_test"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match create_file("test.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match file_move("test.txt", "file_move_test"){
+        Ok(_naught) => assert_eq!(Path::new("file_move_test/test.txt").is_file(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+/// Testing the "file_move" function.
+#[test]
+pub fn test_file_copy() -> () {
+    match create_directory("file_copy_test"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match create_file("copy.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match file_copy("copy.txt", "file_copy_test"){
+        Ok(_naught) => assert_eq!(Path::new("file_copy_test/copy.txt").is_file(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+// Testing the "create_file" function.
+#[test]
+pub fn test_create_file() -> () {
+    match create_file("created.txt"){
+        Ok(_naught) => assert_eq!(Path::new("created.txt").is_file(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
