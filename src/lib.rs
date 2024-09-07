@@ -24,6 +24,12 @@ pub use modules::clone::*;
 /// module.
 pub use modules::error::*;
 
+/// Re-exporting the module
+/// for storing filesystem
+/// entity info.
+#[cfg(feature="filesystem")]
+pub use modules::fsentity::*;
+
 /// Declaring the module for
 /// working with integers
 /// and re-exporting it.

@@ -29,6 +29,11 @@ use std::fs::create_dir;
 /// of a directory.
 use std::fs::read_dir;
 
+/// Importing the enum
+/// that describes types
+/// of filesystem entities.
+use super::fsentity::Entity;
+
 /// Importing Rust's "remove_dir_all"
 /// function from the "fs" module
 /// to remove directories.
@@ -43,11 +48,10 @@ use fs_extra::dir::move_dir;
 /// structure.
 use super::error::CoutilsError;
 
-/// Importing the "Entity" enum
-/// from this crate's "file_utils"
-/// module because "FileEntry"
-/// needs it.
-use super::file_utils::Entity;
+/// Importing the enum
+/// to store information
+/// about filesystem entities.
+use super::fsentity::FileEntry;
 
 /// We need this entity to
 /// perform copying operations
@@ -101,30 +105,6 @@ pub fn create_directory(path: &str) ->  Result<(), CoutilsError> {
 /// Checks whether a directory exists.
 pub fn dir_is(dir: &str) -> bool {
     return Path::new(dir).is_dir();
-}
-
-/// A data structure to represent
-/// a file entry in a file system.
-#[derive(PartialEq, Clone, Debug)]
-pub struct FileEntry {
-    pub name: String,
-    pub file_type: Entity
-}
-
-/// Implementing methods
-/// for the "FileEntry"
-/// entity.
-impl FileEntry {
-
-    /// Convenience method
-    /// to create a new instance
-    /// of the "FileEntry" entity.
-    pub fn new(name: &str, file_type: &Entity) -> FileEntry {
-        return FileEntry { 
-            name: name.to_owned(), 
-            file_type: file_type.to_owned() 
-        }
-    }
 }
 
 /// A method to return the contents of a directory.

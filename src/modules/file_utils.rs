@@ -39,6 +39,11 @@ use std::fs::remove_file;
 /// module.
 use std::cmp::PartialEq;
 
+/// Importing the enum
+/// that describes types
+/// of filesystem entities.
+use super::fsentity::Entity;
+
 /// Importing Rust's
 /// "read_to_string" function.
 use std::fs::read_to_string;
@@ -48,6 +53,11 @@ use std::fs::read_to_string;
 /// crate.
 use fs_extra::file::move_file;
 
+/// Importing the enum
+/// to store information
+/// about filesystem entities.
+use super::fsentity::FileEntry;
+
 /// Importing this crate's error
 /// structure.
 use super::error::CoutilsError;
@@ -56,15 +66,6 @@ use super::error::CoutilsError;
 /// perform copying operations
 /// on files.
 use fs_extra::file::CopyOptions;
-
-/// An enum to list
-/// the file types.
-#[derive(PartialEq, Clone, Debug)]
-pub enum Entity{
-    Dir,
-    File,
-    Unknown
-}
 
 /// Tries to move a file from "src" to "target"
 /// and returns a result type depending on whether the

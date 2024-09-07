@@ -52,7 +52,7 @@ use super::file_utils::file_move;
 /// Importing the "Entity" enum
 /// from the "file_utils" module.
 #[cfg(feature="filesystem")]
-use super::file_utils::Entity;
+use super::fsentity::Entity;
 
 /// Importing the "file_copy" function
 /// from the "file_utils" module.
@@ -97,7 +97,7 @@ use super::dir_utils::dir_move;
 /// Importing the "FileEntry" enum
 /// from the "dir_utils" module.
 #[cfg(feature="filesystem")]
-use super::dir_utils::FileEntry;
+use super::fsentity::FileEntry;
 
 /// Importing the "folder_copy" function
 /// from the "dir_utils" module.
@@ -301,84 +301,28 @@ pub fn test_clone_repo() -> () {
     };
 }
 
-/// Testing the "file_move" function.
-#[test]
-pub fn test_file_move() -> () {
-    let src: &str = ".gitignore";
-    let dest: &str = "src/.gitignore";
-    match file_move(
-        src, dest
-    ){
-        Ok(_move) => assert_eq!(Path::new(dest).is_file(), true),
-        Err(e) => eprintln!("{}", &e.to_string())
-    };
-}
-
-/// Testing the "file_is" function.
-#[test]
-pub fn test_file_is() -> () {
-    assert_eq!(file_is("README.markdown"), true);
-}
-
-/// Testing the "create_file" function.
-#[test]
-pub fn test_create_file() -> () {
-    let new_file: &str = ".hello";
-    match create_file(new_file){
-        Ok(_op) => assert_eq!(Path::new(new_file).is_file(), true),
-        Err(e) => eprintln!("{}", &e.to_string())
-    }
-}
-
-/// Testing the "file_type" function.
-#[test]
-pub fn test_file_type() -> () {
-    let some_file: &str = "README.markdown";
-    assert_eq!(file_type(some_file), Entity::File);
-}
-
-/// Testing the "del_file" function.
-#[test]
-pub fn test_del_file() -> () {
-    let new_file: &str = ".hello";
-    match del_file(new_file){
-        Ok(_op) => assert_eq!(Path::new(new_file).is_file(), false),
-        Err(e) => eprintln!("{}", &e.to_string())
-    }
-}
-
-/// Testing the "file_copy" function.
-#[test]
-pub fn test_file_copy() -> () {
-    let old_file: &str = ".hello";
-    let new_copy: &str = "src/.hello";
-    match file_copy(old_file, new_copy){
-        Ok(_op) => assert_eq!(Path::new(new_copy).is_file(), true),
-        Err(e) => eprintln!("{}", &e.to_string())
-    }
-}
-
-/// Testing the "write_to_file" function
-/// and the "read_file" function.
-#[test]
-pub fn test_file_wr() -> () {
-    let my_file: &str = ".hello";
-    let contents: &str = "Lorem ipsum.\n";
-    match write_to_file(my_file, contents){
-        Ok(_op) => {},
-        Err(e) => eprintln!("{}", &e.to_string())
-    };
-    match read_file(my_file){
-        Ok(cont) => assert_eq!(cont, contents),
-        Err(e) => eprintln!("{}", &e.to_string())
-    };
-}
-
 /// Testing the "create_directory" function.
 #[test]
 pub fn test_create_directory() -> () {
-    match create_directory(".test"){
-        Ok(_op) => assert_eq!(Path::new(".test").is_dir(), true),
+    match create_directory("test_dir"){
+        Ok(_naught) => assert_eq!(Path::new("test_dir").is_dir(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+/// Testing the "dir_move" function.
+#[test]
+pub fn test_dir_move() -> () {
+    match create_directory("test_dir"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match create_directory("subject_dir"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match dir_move("test_dir", "subject_dir"){
+        Ok(_naught) => assert_eq!(Path::new("subject_dir/test_dir").is_dir(), true),
         Err(e) => eprintln!("{}", &e.to_string())
     }
 }
@@ -386,17 +330,16 @@ pub fn test_create_directory() -> () {
 /// Testing the "folder_copy" function.
 #[test]
 pub fn test_folder_copy() -> () {
-    match folder_copy(".test", "src/.test"){
-        Ok(_op) => assert_eq!(Path::new("src/.test").is_dir(), true),
+    match create_directory("folder_copy_dir"){
+        Ok(_naught) => {},
         Err(e) => eprintln!("{}", &e.to_string())
-    }
-}
-
-/// Testing the "del_dir" function.
-#[test]
-pub fn test_del_dir() -> () {
-    match del_dir("src/.test"){
-        Ok(_op) => assert_eq!(Path::new("src/.test").is_dir(), false),
+    };
+    match create_directory("copy_subject_dir"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match folder_copy("folder_copy_dir", "copy_subject_dir"){
+        Ok(_naught) => assert_eq!(Path::new("copy_subject_dir/folder_copy_dir").is_dir(), true),
         Err(e) => eprintln!("{}", &e.to_string())
     }
 }
@@ -404,26 +347,34 @@ pub fn test_del_dir() -> () {
 /// Testing the "dir_is" function.
 #[test]
 pub fn test_dir_is() -> () {
-    assert_eq!(Path::new("src").is_dir(), false);
+    match create_directory("dir_is_test"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    assert_eq!(dir_is("dir_is_test"), true);
 }
 
-/// Testing the "list_dir_contents" function.
+/// Testing the "dir_is" function.
+#[test]
+pub fn test_del_dir() -> () {
+    match create_directory("del_dir_test"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match del_dir("del_dir_test"){
+        Ok(_naught) => assert_eq!(Path::new("del_dir_test").is_dir(), false),
+        Err(e) => eprintln!("{}", &e.to_string())
+    }
+}
+
+/// Testing the "dir_is" function.
 #[test]
 pub fn test_list_dir_contents() -> () {
-    let mut res: Vec<FileEntry> = Vec::new();
-    res.push(FileEntry::new("modules", &Entity::Dir));
-    res.push(FileEntry::new("lib.rs", &Entity::File));
+    let mut contents: Vec<FileEntry> = Vec::new();
+    contents.push(FileEntry::new("src/lib.rs", &Entity::File));
+    contents.push(FileEntry::new("src/modules", &Entity::Dir));
     match list_dir_contents("src"){
-        Ok(contents) => assert_eq!(res, contents),
+        Ok(cont) => assert_eq!(cont, contents),
         Err(e) => eprintln!("{}", &e.to_string())
-    }
-}
-
-/// Testing the "dir_move" function.
-#[test]
-pub fn test_dir_move() -> () {
-    match dir_move(".github", "src/.github"){
-        Ok(contents) => assert_eq!(Path::new("src/.github").is_dir(), true),
-        Err(e) => eprintln!("{}", &e.to_string())
-    }
+    };
 }

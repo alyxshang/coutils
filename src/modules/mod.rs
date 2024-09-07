@@ -25,6 +25,12 @@ pub mod clone;
 pub mod error;
 
 /// Exporting the module
+/// for storing filesystem
+/// entity info.
+#[cfg(feature="filesystem")]
+pub mod fsentity;
+
+/// Exporting the module
 /// for working with 
 /// integers.
 pub mod int_utils;

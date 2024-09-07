@@ -93,7 +93,7 @@ pub fn get_index<T: Debug + Clone + PartialEq>(
     subject: &Vec<T>, 
     item: &T
 ) -> Result<usize, CoutilsError> {
-    let mut result: usize = match subject.iter().position(|s| s == item){
+    let result: usize = match subject.iter().position(|s| s == item){
         Some(result) => result,
         None => {
             let e: String = format!("Element \"{:?}\" does not exist.", &item);
