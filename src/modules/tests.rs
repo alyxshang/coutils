@@ -301,6 +301,7 @@ pub fn test_clone_repo() -> () {
     };
 }
 
+
 /// Testing the "create_directory" function.
 #[test]
 pub fn test_create_directory() -> () {
@@ -310,10 +311,11 @@ pub fn test_create_directory() -> () {
     };
 }
 
+
 /// Testing the "dir_move" function.
 #[test]
 pub fn test_dir_move() -> () {
-    match create_directory("test_dir"){
+    match create_directory("test_dir_move"){
         Ok(_naught) => {},
         Err(e) => eprintln!("{}", &e.to_string())
     };
@@ -321,8 +323,8 @@ pub fn test_dir_move() -> () {
         Ok(_naught) => {},
         Err(e) => eprintln!("{}", &e.to_string())
     };
-    match dir_move("test_dir", "subject_dir"){
-        Ok(_naught) => assert_eq!(Path::new("subject_dir/test_dir").is_dir(), true),
+    match dir_move("test_dir_move", "subject_dir"){
+        Ok(_naught) => assert_eq!(Path::new("subject_dir/test_dir_move").is_dir(), true),
         Err(e) => eprintln!("{}", &e.to_string())
     }
 }
@@ -367,7 +369,7 @@ pub fn test_del_dir() -> () {
     }
 }
 
-/// Testing the "dir_is" function.
+/// Testing the "list_dir_contents" function.
 #[test]
 pub fn test_list_dir_contents() -> () {
     let mut contents: Vec<FileEntry> = Vec::new();
@@ -396,7 +398,7 @@ pub fn test_file_move() -> () {
     };
 }
 
-/// Testing the "file_move" function.
+/// Testing the "file_copy" function.
 #[test]
 pub fn test_file_copy() -> () {
     match create_directory("file_copy_test"){
