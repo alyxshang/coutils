@@ -42,7 +42,7 @@ pub fn clone_repo(
             Ok(_x) => {},
             Err(e) => {return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));}
         }
-        let repo_url: &String = &format!("https://{}.com/{}/{}.git#{}", host, owner, repo, branch);
+        let repo_url: &String = &format!("https://{}/{}/{}.git#{}", host, owner, repo, branch);
         let _repo = match Repository::clone(repo_url, dir) {
             Ok(_repo) => _repo,
             Err(e) => {return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));}
