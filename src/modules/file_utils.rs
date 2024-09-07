@@ -135,12 +135,12 @@ pub fn read_file(filename: &str) -> Result<String, CoutilsError> {
         };
     }
     else {}
-    return Ok(result);
+    Ok(result)
 }
 
 /// Checks whether "entity" is a directory or
 /// a file.
-pub fn file_type(entity: &str) -> Entity {
+pub fn file_type(entity: &str) -> Result<Entity, CoutilsError> {
     let mut result: Entity = Entity::Unknown;
     if Path::new(entity).exists() {
         if Path::new(entity).is_dir() {
@@ -153,21 +153,22 @@ pub fn file_type(entity: &str) -> Entity {
             result = Entity::Unknown;
         }
     }
-    return result;
+    else {
+        let e: String = format!("Entity \"{}\" does not exist.", entity);
+        return Err::<Entity, CoutilsError>(CoutilsError::new(&e.to_string()));
+    }
+    Ok(result)
 }
 
 /// Deletes a file and returns 
 /// a result type depending
 /// on whether the operation succeeded.
 pub fn del_file(path: &str) -> Result<(), CoutilsError> {
-    let del_op = remove_file(path);
-    match del_op {
-        Ok(_x) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
+    let del_op = match remove_file(path) {
+        Ok(del_op) => del_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
     };
-    return Ok(());
+    Ok(del_op)
 }
 
 /// Tries to copy a file from "src" to "target"
@@ -175,12 +176,9 @@ pub fn del_file(path: &str) -> Result<(), CoutilsError> {
 /// operation succeeded or not.
 pub fn file_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let copy_op = copy(src, target, &options);
-    match copy_op {
-        Ok(_n) => {},
-        Err(e) => {
-            return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()));
-        }
-    }
-    return Ok(());
+    let copy_op = match copy(src, target, &options){
+        Ok(copy_op) => copy_op,
+        Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
+    };
+    Ok(())
 }

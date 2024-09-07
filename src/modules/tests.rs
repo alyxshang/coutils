@@ -421,3 +421,60 @@ pub fn test_create_file() -> () {
         Err(e) => eprintln!("{}", &e.to_string())
     };
 }
+
+// Testing the "file_is" function.
+#[test]
+pub fn test_file_is() -> () {
+    match create_file("exists.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    assert_eq!(file_is("exists.txt"), true);
+}
+
+// Testing the "write_to_file" function
+// and the "read_file" function.
+#[test]
+pub fn test_file_wr() -> () {
+    let contents: String = "Alyx".to_string();
+    match create_file("wr_test.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match write_to_file("wr_test.txt", &contents){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match read_file("wr_test.txt"){
+        Ok(cont) => assert_eq!(cont, contents),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+// Testing the "del_file" function.
+#[test]
+pub fn test_del_file() -> () {
+    let contents: String = "Alyx".to_string();
+    match create_file("del.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match del_file("del.txt"){
+        Ok(_naught) => assert_eq!(Path::new("del.txt").is_file(), false),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+// Testing the "file_type" function.
+#[test]
+pub fn test_file_type() -> () {
+    let contents: String = "Alyx".to_string();
+    match create_file("type.txt"){
+        Ok(_naught) => {},
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match file_type("type.txt"){
+        Ok(res) => assert_eq!(res, Entity::File),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
