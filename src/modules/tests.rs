@@ -29,11 +29,6 @@ use super::vec_utils::has_item;
 /// module.
 use super::int_utils::raise_to;
 
-/// Importing the "parse_int"
-/// function from the "int_utils"
-/// module.
-use super::int_utils::parse_int;
-
 /// Importing the "get_index"
 /// function from the "vec_utils"
 /// module.
@@ -50,7 +45,7 @@ use super::vec_utils::has_index;
 use super::file_utils::file_move;
 
 /// Importing the "Entity" enum
-/// from the "file_utils" module.
+/// from the "fsentity" module.
 #[cfg(feature="filesystem")]
 use super::fsentity::Entity;
 
@@ -209,21 +204,6 @@ pub fn test_is_int() -> () {
     );
 }
 
-/// Testing the "parse_int" function.
-#[test]
-pub fn test_parse_int() -> () {
-    let true_string: String = String::from("1");
-    let false_string: String = String::from("A");
-    assert_eq!(
-        parse_int(&true_string),
-        1
-    );
-    assert_eq!(
-        parse_int(&false_string),
-        0
-    );
-}
-
 /// Testing the "reverse_vec" function.
 #[test]
 pub fn test_reverse_vec() -> () {
@@ -351,7 +331,7 @@ pub fn test_dir_is() -> () {
     assert_eq!(dir_is("dir_is_test"), true);
 }
 
-/// Testing the "dir_is" function.
+/// Testing the "del_dir" function.
 #[test]
 pub fn test_del_dir() -> () {
     match create_directory("del_dir_test"){

@@ -9,7 +9,7 @@ Licensed under the FSL v1.
 use std::cmp::PartialEq;
 
 /// An enum to list
-/// the file types.
+/// file types.
 #[derive(PartialEq, Clone, Debug)]
 pub enum Entity{
     Dir,

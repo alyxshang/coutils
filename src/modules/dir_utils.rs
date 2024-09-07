@@ -54,7 +54,7 @@ use super::fsentity::FileEntry;
 use fs_extra::dir::CopyOptions;
 
 /// Tries to copy a folder from "src" to "target"
-/// and returns a result type depending on whether the
+/// and returns a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn folder_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
@@ -66,7 +66,7 @@ pub fn folder_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
 }
 
 /// Attempts to move a directory from "src" to "target".
-/// A result type is returned depending on whether the operation
+/// A `Result` type is returned depending on whether the operation
 /// suceeded or not.
 pub fn dir_move(src: &str, target: &str) ->  Result<(), CoutilsError> {
     let options = CopyOptions::new();
@@ -78,7 +78,7 @@ pub fn dir_move(src: &str, target: &str) ->  Result<(), CoutilsError> {
 }
 
 /// Tries to create a new directory and returns
-/// a result type depending on whether the
+/// a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn create_directory(path: &str) ->  Result<(), CoutilsError> {
     let _new_dir = match create_dir(path) {
@@ -89,6 +89,7 @@ pub fn create_directory(path: &str) ->  Result<(), CoutilsError> {
 }
 
 /// Checks whether a directory exists.
+/// Returns a boolean to this effect.
 pub fn dir_is(dir: &str) -> bool {
     return Path::new(dir).is_dir();
 }
@@ -134,7 +135,7 @@ pub fn list_dir_contents(dir: &str) -> Result<Vec<FileEntry>, CoutilsError> {
 }
 
 /// Deletes a directory and returns 
-/// a result type depending on whether 
+/// a `Result` type depending on whether 
 /// the operation succeeded or not.
 pub fn del_dir(path: &str) -> Result<(), CoutilsError> {
     let _del_op = match remove_dir_all(path){

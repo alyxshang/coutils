@@ -10,29 +10,29 @@ This repository contains a Rust crate containing APIs for performing basic tasks
 
 ## INSTALLATION :inbox_tray:
 
-To use ***Coutils*** in your Rust project, add this line to your project's `Cargo.toml`'s `[dependencies]` section:
+To use ***Coutils*** in your Rust project add this line to your project's `Cargo.toml`'s `[dependencies]` section:
 
 ```TOML
-coutils = { git = "https://github.com/alyxshang/coutils", version = "0.1.0" }
+coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.1.0" }
 ```
 
 Optionally, you can decide which features you would like to enable. ***Coutils*** offers the following features:
 
 - `filesystem`: A feature to work with files and directories.
 - `networking`: A feature to clone Git repositories.
-- `time`: A feature to get current time information.
+- `time`: A feature to get information on the current time.
 
 To enable one or all of the available features, add this line to your Rust project's `Cargo.toml`:
 
 ```TOML
-coutils = { git = "https://github.com/alyxshang/coutils", version = "0.1.0", features = ["feature_name"] }
+coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.1.0", features = ["feature_name"] }
 ```
 
 The placeholder `feature_name` represents any of the features this crate contains. The feature(s) you enable depend on the requirements of your project.
 
 ## USAGE :hammer:
 
-To view this crate's API, please visit the [documentation](https://alyxshang.boo/coutils/).
+To view this crate's API please clone this repository and run the command `cargo doc --open` from the repository's root.
 
 ## CHANGELOG :black_nib:
 

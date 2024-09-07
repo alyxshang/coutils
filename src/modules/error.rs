@@ -26,7 +26,7 @@ pub struct CoutilsError {
     pub details: String
 }
 
-/// Implement generic methods.
+/// Implements generic methods.
 impl CoutilsError {
 
     /// Implements a generic method to create

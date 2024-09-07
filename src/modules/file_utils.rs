@@ -53,7 +53,7 @@ use super::error::CoutilsError;
 use fs_extra::file::CopyOptions;
 
 /// Tries to move a file from "src" to "target"
-/// and returns a result type depending on whether the
+/// and returns a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn file_move(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
@@ -72,7 +72,7 @@ pub fn file_is(filename: &str) -> bool {
 }
 
 /// Tries to create a file and returns
-/// a result type depending on whether the
+/// a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn create_file(filename: &str) -> Result<(), CoutilsError>{
     let _new_file = match File::create(filename){
@@ -82,8 +82,8 @@ pub fn create_file(filename: &str) -> Result<(), CoutilsError>{
     Ok(())
 }
 
-/// Tries to write to a file and returns
-/// a result type depending on whether the
+/// Tries to write a string to a file and returns
+/// a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn write_to_file(
     filename: &str, 
@@ -103,7 +103,8 @@ pub fn write_to_file(
 }
 
 /// Tries to read a file and return
-/// its contents as a string.
+/// the contents as a string. A `Result`
+/// type is returned.
 pub fn read_file(file_name: &str) -> Result<String, CoutilsError> {
     if file_is(file_name) == true {
         let result = match read_to_string(file_name) {
@@ -121,7 +122,8 @@ pub fn read_file(file_name: &str) -> Result<String, CoutilsError> {
 }
 
 /// Checks whether "entity" is a directory or
-/// a file.
+/// a file. A `Result` type is returned depending on whether
+/// the file or directory exists or not.
 pub fn file_type(entity: &str) -> Result<Entity, CoutilsError> {
     if Path::new(entity).exists() {
         if Path::new(entity).is_dir() {
@@ -141,8 +143,8 @@ pub fn file_type(entity: &str) -> Result<Entity, CoutilsError> {
 }
 
 /// Deletes a file and returns 
-/// a result type depending
-/// on whether the operation succeeded.
+/// a `Result` type depending
+/// on whether the operation succeeded or not.
 pub fn del_file(path: &str) -> Result<(), CoutilsError> {
     let del_op = match remove_file(path) {
         Ok(del_op) => del_op,
@@ -152,7 +154,7 @@ pub fn del_file(path: &str) -> Result<(), CoutilsError> {
 }
 
 /// Tries to copy a file from "src" to "target"
-/// and returns a result type depending on whether the
+/// and returns a `Result` type depending on whether the
 /// operation succeeded or not.
 pub fn file_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();

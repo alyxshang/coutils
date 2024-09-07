@@ -29,7 +29,7 @@ pub fn reverse_vec<T: Clone>(subject: &Vec<T>) -> Vec<T> {
     return result;
 }
 
-/// Checks whether an item exists in a vector. Any type allowed.
+/// Checks whether an item exists in a vector.
 /// Returns a boolean depending on whether the item exists or not.
 pub fn has_item<T: Clone + PartialEq>(
     subject: &Vec<T>, 
@@ -46,7 +46,7 @@ pub fn has_item<T: Clone + PartialEq>(
     return result;
 }
 
-/// Gets the last item of a string array and returns it.
+/// Gets the last item of a vector and returns it.
 pub fn get_last_item<T: Debug + Clone + PartialEq>(
     arr: &Vec<T>
 ) -> T {
@@ -55,7 +55,7 @@ pub fn get_last_item<T: Debug + Clone + PartialEq>(
     return arr[last_item_index].clone();
 }
 
-/// Get a random item from a string vector.
+/// Gets a random item from a vector.
 /// Returns this item.
 pub fn get_rand_item<T: Debug + Clone + PartialEq>(
     subject: &Vec<T>

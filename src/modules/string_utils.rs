@@ -7,8 +7,8 @@ Licensed under the FSL v1.
 /// split by some character. Both the string
 /// and split character have to be strings.
 pub fn clean_split(
-    subject: &String, 
-    split_char: &String
+    subject: &str, 
+    split_char: &str
 ) -> Vec<String> {
     let mut result: Vec<String> = Vec::new();
     for item in subject.split(&*split_char) {
