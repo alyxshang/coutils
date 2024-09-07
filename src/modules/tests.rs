@@ -94,11 +94,6 @@ use super::file_utils::del_file;
 #[cfg(feature="filesystem")]
 use super::dir_utils::dir_move;
 
-/// Importing the "FileEntry" enum
-/// from the "dir_utils" module.
-#[cfg(feature="filesystem")]
-use super::fsentity::FileEntry;
-
 /// Importing the "folder_copy" function
 /// from the "dir_utils" module.
 #[cfg(feature="filesystem")]
