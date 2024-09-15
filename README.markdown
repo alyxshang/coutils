@@ -19,7 +19,7 @@ coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.1.0" }
 Optionally, you can decide which features you would like to enable. ***Coutils*** offers the following features:
 
 - `filesystem`: A feature to work with files and directories.
-- `networking`: A feature to clone Git repositories.
+- `clone`: A feature to clone Git repositories.
 - `time`: A feature to get information on the current time.
 
 To enable one or all of the available features, add this line to your Rust project's `Cargo.toml`:
