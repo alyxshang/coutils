@@ -25,6 +25,12 @@ pub use modules::clone::*;
 pub use modules::error::*;
 
 /// Re-exporting the module
+/// provide network loading
+/// functionality.
+#[cfg(feature="loading")]
+pub use modules::loading::*;
+
+/// Re-exporting the module
 /// for storing filesystem
 /// entity info.
 #[cfg(feature="filesystem")]
@@ -51,6 +57,11 @@ pub use modules::vec_utils::*;
 /// and re-exporting it.
 #[cfg(feature = "filesystem")]
 pub use modules::file_utils::*;
+
+/// Re-exporting the module
+/// to handle file-compression.
+#[cfg(feature="compression")]
+pub use modules::compression::*;
 
 /// Declaring the module for
 /// working with strings

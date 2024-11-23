@@ -25,6 +25,12 @@ pub mod clone;
 pub mod error;
 
 /// Exporting the module
+/// provide network loading
+/// functionality.
+#[cfg(feature="loading")]
+pub mod loading;
+
+/// Exporting the module
 /// for storing filesystem
 /// entity info.
 #[cfg(feature="filesystem")]
@@ -51,6 +57,11 @@ pub mod vec_utils;
 /// files.
 #[cfg(feature="filesystem")]
 pub mod file_utils;
+
+/// Exporting the module
+/// to handle file-compression.
+#[cfg(feature="compression")]
+pub mod compression;
 
 /// Exporting the module
 /// for working with 

@@ -3,10 +3,23 @@ Coutils by Alyx Shang.
 Licensed under the FSL v1.
 */
 
+/// Importing the "tokio"
+/// crate to use the "test"
+/// macro.
+#[cfg(feature="loading")]
+use tokio;
+
 /// Importing the "Path" API
 /// to ascertain whether file- or
 /// directory-creations were successful.
+#[cfg(feature="filesystem")]
 use std::path::Path;
+
+/// Importing the "PathBuf" API
+/// to ascertain whether file- or
+/// directory-creations were successful.
+#[cfg(feature="filesystem")]
+use std::path::PathBuf;
 
 /// Importing the "get_time"
 /// function from the "time"
@@ -59,6 +72,16 @@ use super::file_utils::file_copy;
 #[cfg(feature="filesystem")]
 use super::file_utils::file_is;
 
+/// Importing the "read_file" function
+/// from the "file_utils" module.
+#[cfg(feature="filesystem")]
+use super::file_utils::read_file;
+
+/// Importing the "download_file"
+/// function to test it.
+#[cfg(feature="loading")]
+use super::loading::download_file;
+
 /// Importing the "create_file" function
 /// from the "file_utils" module.
 #[cfg(feature="filesystem")]
@@ -69,10 +92,15 @@ use super::file_utils::create_file;
 #[cfg(feature="filesystem")]
 use super::file_utils::write_to_file;
 
-/// Importing the "read_file" function
-/// from the "file_utils" module.
-#[cfg(feature="filesystem")]
-use super::file_utils::read_file;
+/// Importing the "create_tarball" function
+/// to test it.
+#[cfg(feature="compression")]
+use super::compression::create_tarball;
+
+/// Importing the "create_tarball" function
+/// to test it.
+#[cfg(feature="compression")]
+use super::compression::extract_tarball;
 
 /// Importing the "file_type" function
 /// from the "file_utils" module.
@@ -263,6 +291,7 @@ pub fn test_has_item() -> () {
 
 /// Testing the "clone_repo" function.
 #[test]
+#[cfg(feature="clone")]
 pub fn test_clone_repo() -> () {
     match clone_repo(
         "coutils",
@@ -279,6 +308,7 @@ pub fn test_clone_repo() -> () {
 
 /// Testing the "create_directory" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_create_directory() -> () {
     match create_directory("test_dir"){
         Ok(_naught) => assert_eq!(Path::new("test_dir").is_dir(), true),
@@ -289,6 +319,7 @@ pub fn test_create_directory() -> () {
 
 /// Testing the "dir_move" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_dir_move() -> () {
     match create_directory("test_dir_move"){
         Ok(_naught) => {},
@@ -306,6 +337,7 @@ pub fn test_dir_move() -> () {
 
 /// Testing the "folder_copy" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_folder_copy() -> () {
     match create_directory("folder_copy_dir"){
         Ok(_naught) => {},
@@ -323,6 +355,7 @@ pub fn test_folder_copy() -> () {
 
 /// Testing the "dir_is" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_dir_is() -> () {
     match create_directory("dir_is_test"){
         Ok(_naught) => {},
@@ -333,6 +366,7 @@ pub fn test_dir_is() -> () {
 
 /// Testing the "del_dir" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_del_dir() -> () {
     match create_directory("del_dir_test"){
         Ok(_naught) => {},
@@ -346,6 +380,7 @@ pub fn test_del_dir() -> () {
 
 /// Testing the "list_dir_contents" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_list_dir_contents() -> () {
     match list_dir_contents("src"){
         Ok(cont) => assert_eq!(cont.len(), 2),
@@ -355,6 +390,7 @@ pub fn test_list_dir_contents() -> () {
 
 /// Testing the "file_move" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_file_move() -> () {
     match create_directory("file_move_test"){
         Ok(_naught) => {},
@@ -372,6 +408,7 @@ pub fn test_file_move() -> () {
 
 /// Testing the "file_copy" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_file_copy() -> () {
     match create_directory("file_copy_test"){
         Ok(_naught) => {},
@@ -389,6 +426,7 @@ pub fn test_file_copy() -> () {
 
 // Testing the "create_file" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_create_file() -> () {
     match create_file("created.txt"){
         Ok(_naught) => assert_eq!(Path::new("created.txt").is_file(), true),
@@ -398,6 +436,7 @@ pub fn test_create_file() -> () {
 
 // Testing the "file_is" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_file_is() -> () {
     match create_file("exists.txt"){
         Ok(_naught) => {},
@@ -409,6 +448,7 @@ pub fn test_file_is() -> () {
 // Testing the "write_to_file" function
 // and the "read_file" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_file_wr() -> () {
     let contents: String = "Alyx".to_string();
     match create_file("wr_test.txt"){
@@ -427,6 +467,7 @@ pub fn test_file_wr() -> () {
 
 // Testing the "del_file" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_del_file() -> () {
     match create_file("del.txt"){
         Ok(_naught) => {},
@@ -440,6 +481,7 @@ pub fn test_del_file() -> () {
 
 // Testing the "file_type" function.
 #[test]
+#[cfg(feature="filesystem")]
 pub fn test_file_type() -> () {
     match create_file("type.txt"){
         Ok(_naught) => {},
@@ -448,5 +490,62 @@ pub fn test_file_type() -> () {
     match file_type("type.txt"){
         Ok(res) => assert_eq!(res, Entity::File),
         Err(e) => eprintln!("{}", &e.to_string())
+    };
+}
+
+/// Testing the "download_file"
+/// function.
+#[tokio::test]
+#[cfg(all(feature="filesystem", feature="loading"))]
+pub async fn test_download() -> (){
+    let file_name: String = "file_example_MP3_700KB.mp3".to_string();
+    match download_file(
+        &("https://file-examples.com/wp-content/storage/2017/11/file_example_MP3_700KB.mp3".to_string()),
+        &file_name
+    ).await {
+        Ok(_feedback) => _feedback,
+        Err(e) => println!("{}", &e.to_string()) 
+    };
+    assert_eq!(Path::new(&file_name).exists(), true)
+}
+
+/// Testing the "create_tarball" function.
+#[test]
+#[cfg(all(feature="compression", feature="filesystem"))]
+pub fn test_compression_creation() -> () {
+    match create_directory("tarball_create_test"){
+        Ok(_naught) => assert_eq!(Path::new("tarball_create_test").is_dir(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    let mut pathbuf = PathBuf::new();
+    pathbuf.push("tarball_create_test");
+    pathbuf.push("type.text");
+    match create_file(&pathbuf.display().to_string()){
+        Ok(_naught) => assert_eq!(Path::new(&pathbuf.display().to_string()).is_file(), true),
+        Err(e) => eprintln!("{}", &e.to_string())
+    };
+    match create_tarball(
+        "tarball_create_test",
+        "tarball_create_test.tar.gz"
+    ){
+        Ok(feedback) => assert_eq!(Path::new("tarball_create_test.tar.gz").exists(),true),
+        Err(e) => println!("{}", e)
+    };
+    match del_dir("tarball_create_test"){
+        Ok(feedback) => assert_eq!(Path::new("tarball_create_test").exists(),false),
+        Err(e) => println!("{}", e)
+    };
+}
+
+/// Testing the "extract_tarball" function.
+#[test]
+#[cfg(all(feature="compression", feature="filesystem"))]
+pub fn test_extraction() -> () {
+    match extract_tarball(
+        "tarball_create_test.tar.gz",
+        "tarball_create_test"
+    ){
+        Ok(feedback) => assert_eq!(Path::new("tarball_create_test").exists(),true),
+        Err(e) => println!("{}", e)
     };
 }
