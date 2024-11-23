@@ -16,8 +16,8 @@ use tokio;
 use std::path::Path;
 
 /// Importing the "PathBuf" API
-/// to ascertain whether file- or
-/// directory-creations were successful.
+/// to ascertain whether file or
+/// directory creations were successful.
 #[cfg(feature="filesystem")]
 use std::path::PathBuf;
 
@@ -97,7 +97,7 @@ use super::file_utils::write_to_file;
 #[cfg(feature="compression")]
 use super::compression::create_tarball;
 
-/// Importing the "create_tarball" function
+/// Importing the "extract_tarball" function
 /// to test it.
 #[cfg(feature="compression")]
 use super::compression::extract_tarball;

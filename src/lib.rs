@@ -25,7 +25,7 @@ pub use modules::clone::*;
 pub use modules::error::*;
 
 /// Re-exporting the module
-/// provide network loading
+/// providing network loading
 /// functionality.
 #[cfg(feature="loading")]
 pub use modules::loading::*;
@@ -59,7 +59,7 @@ pub use modules::vec_utils::*;
 pub use modules::file_utils::*;
 
 /// Re-exporting the module
-/// to handle file-compression.
+/// to handle file compression.
 #[cfg(feature="compression")]
 pub use modules::compression::*;
 

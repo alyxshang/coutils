@@ -19,13 +19,13 @@ use std::fs::File;
 /// of compression.
 use flate2::Compression;
 
-/// Importing the "Decoder"
+/// Importing the "GzDecoder"
 /// structure from the "flate2"
 /// crate to decode Gzip-encoded
 /// files.
 use flate2::read::GzDecoder;
 
-/// Importing the "Decoder"
+/// Importing the "GzEncoder"
 /// structure from the "flate2"
 /// crate to encode Gzip
 /// files.

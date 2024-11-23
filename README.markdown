@@ -30,7 +30,7 @@ To enable one or all of the available features, add this line to your Rust proje
 coutils = { git = "https://github.com/alyxshang/coutils", tag = "v.0.2.0", features = ["feature_name"] }
 ```
 
-The placeholder `feature_name` represents any of the features this crate contains. The feature(s) you enable depend on the requirements of your project.
+The placeholder `feature_name` represents any of the features this crate contains. The feature(s) enabled depend on the requirements of your project.
 
 ## USAGE :hammer:
 
