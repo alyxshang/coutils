@@ -528,11 +528,11 @@ pub fn test_compression_creation() -> () {
         "tarball_create_test",
         "tarball_create_test.tar.gz"
     ){
-        Ok(feedback) => assert_eq!(Path::new("tarball_create_test.tar.gz").exists(),true),
+        Ok(_feedback) => assert_eq!(Path::new("tarball_create_test.tar.gz").exists(),true),
         Err(e) => println!("{}", e)
     };
     match del_dir("tarball_create_test"){
-        Ok(feedback) => assert_eq!(Path::new("tarball_create_test").exists(),false),
+        Ok(_feedback) => assert_eq!(Path::new("tarball_create_test").exists(),false),
         Err(e) => println!("{}", e)
     };
 }
@@ -545,7 +545,7 @@ pub fn test_extraction() -> () {
         "tarball_create_test.tar.gz",
         "tarball_create_test"
     ){
-        Ok(feedback) => assert_eq!(Path::new("tarball_create_test").exists(),true),
+        Ok(_feedback) => assert_eq!(Path::new("tarball_create_test").exists(),true),
         Err(e) => println!("{}", e)
     };
 }
