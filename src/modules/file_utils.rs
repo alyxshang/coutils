@@ -62,9 +62,7 @@ use fs_extra::file::CopyOptions;
 /// operation succeeded or not.
 pub fn file_move(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let mut new_buf: PathBuf = PathBuf::new();
-    new_buf.push(target);
-    let _move_op: u64 = match move_file(src, &new_buf.display().to_string(), &options){
+    let _move_op: u64 = match move_file(src, target, &options){
         Ok(_move_op) => _move_op,
         Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
     };
@@ -164,9 +162,7 @@ pub fn del_file(path: &str) -> Result<(), CoutilsError> {
 /// operation succeeded or not.
 pub fn file_copy(src: &str, target: &str) -> Result<(), CoutilsError> {
     let options = CopyOptions::new();
-    let mut new_buf: PathBuf = PathBuf::new();
-    new_buf.push(target);
-    let _copy_op: u64 = match copy(src, new_buf.display().to_string(), &options){
+    let _copy_op: u64 = match copy(src, target, &options){
         Ok(_copy_op) => _copy_op,
         Err(e) => return Err::<(), CoutilsError>(CoutilsError::new(&e.to_string()))
     };
