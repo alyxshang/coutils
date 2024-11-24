@@ -46,6 +46,6 @@ impl FileEntry {
             Entity::Dir => "Directory".to_string(),
             Entity::Unknown => "Unkown".to_string()
         };
-        format("Type: {}, Path: {}", file_type, &self.name)
+        format!("Type: {}, Path: {}", file_type, &self.name)
     }
 }
