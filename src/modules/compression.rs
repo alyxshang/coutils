@@ -51,7 +51,7 @@ pub fn extract_tarball(tarball: &str, target_path: &str) -> Result<(), CoutilsEr
     Ok(res)
 }
 
-/// Attempts to create a tarball with provided name from the provided directory.
+/// Attempts to create a tarball with the provided name from the provided directory.
 /// If this operation fails, an error is returned.
 pub fn create_tarball(directory: &str, target_archive: &str) -> Result<(), CoutilsError> {
     let tar_gz = match File::create(target_archive){
