@@ -40,6 +40,9 @@ impl FileEntry {
         }
     }
 
+    /// A convenience method to return
+    /// a string representation of the
+    /// detected entity.
     pub fn to_string(&self) -> String {
         let file_type: String = match &self.file_type{
             Entity::File => "File".to_string(),

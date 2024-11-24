@@ -45,9 +45,10 @@ To view this crate's API please clone this repository and run the command `cargo
 
 ### Version 0.2.0
 
-- Added more documentation.
 - Added more features.
+- Added more documentation.
 - Added a function for downloading files.
+- Added the `loading` and `compression` features.
 - Added a function for compressing a directory into a tarball.
 - Added a function for extracting a directory from a tarball.
 - Made many file functions more friendly for cross-platform usage.

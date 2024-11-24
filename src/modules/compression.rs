@@ -9,7 +9,7 @@ Licensed under the FSL v1.
 use tar::Archive;
 
 /// Importing Rust's 
-/// "File" struct
+/// "File" structure.
 /// from the "fs" module.
 use std::fs::File;
 

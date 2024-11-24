@@ -15,7 +15,7 @@ use git2::Repository;
 use super::dir_utils::dir_is;
 
 /// Importing Coutils's error
-/// struct.
+/// structure.
 use super::error::CoutilsError;
 
 /// Importing the "create_directory"
