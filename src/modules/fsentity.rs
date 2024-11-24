@@ -39,4 +39,13 @@ impl FileEntry {
             file_type: file_type.to_owned() 
         }
     }
+
+    pub fn to_string(&self) -> String {
+        let file_type: String = match &self.file_type{
+            Entity::File => "File".to_string(),
+            Entity::Dir => "Directory".to_string(),
+            Entity::Unknown => "Unkown".to_string()
+        };
+        format("Type: {}, Path: {}", file_type, &self.name)
+    }
 }
